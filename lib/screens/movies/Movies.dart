@@ -7,10 +7,10 @@ class Movies extends StatelessWidget {
     return TabBarView(
       children: [
         MovieComponent(
-          type: "hollywood",
+          type: true,
         ),
         MovieComponent(
-          type: "bollywood",
+          type: false,
         )
       ],
     );
