@@ -5,10 +5,10 @@ class TabBarComponents {
     TabBar(
       tabs: [
         Tab(
-          text: "Bollywood",
+          text: "Hollywood",
         ),
         Tab(
-          text: "Hollywood",
+          text: "Bollywood",
         ),
       ],
     ),

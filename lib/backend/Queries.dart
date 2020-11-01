@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 
 class Queries {
-  static Map queries = {
+  static Map<String, Stream<Event>> queries = {
     "bollywood": FirebaseDatabase.instance
         .reference()
         .child("movies")
@@ -14,5 +14,6 @@ class Queries {
         .orderByChild("type")
         .equalTo(1)
         .onValue,
+    "subAnime": FirebaseDatabase.instance.reference().child("anime").onValue
   };
 }
