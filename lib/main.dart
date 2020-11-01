@@ -7,6 +7,7 @@ void main() {
   runApp(MaterialApp(
     home: App(),
     debugShowCheckedModeBanner: false,
+    theme: ThemeData(brightness: Brightness.dark),
   ));
 }
 
