@@ -14,11 +14,11 @@ class AnimeDetail extends StatelessWidget {
       body: SafeArea(
         child: VStack([
           Center(
-            child: Container(
-              height: 230,
-              width: 150,
-              child: Hero(
-                tag: data['title'],
+            child: Hero(
+              tag: data['title'],
+              child: Container(
+                height: 230,
+                width: 150,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.network(
@@ -26,8 +26,8 @@ class AnimeDetail extends StatelessWidget {
                     fit: BoxFit.fill,
                   ),
                 ),
-              ),
-            ).pOnly(top: 30),
+              ).pOnly(top: 30),
+            ),
           ),
           Center(
             child: SizedBox(

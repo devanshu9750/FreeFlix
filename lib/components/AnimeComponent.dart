@@ -110,11 +110,11 @@ class _AnimeComponentState extends State<AnimeComponent> {
                               Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20)),
-                                child: Container(
-                                  height: 180,
-                                  width: 125,
-                                  child: Hero(
-                                    tag: e['title'],
+                                child: Hero(
+                                  tag: e['title'],
+                                  child: Container(
+                                    height: 180,
+                                    width: 125,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.network(
