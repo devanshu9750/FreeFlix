@@ -1,4 +1,5 @@
 import 'package:FreeFlix/components/BodyComponents.dart';
+import 'package:FreeFlix/components/DrawerComponent.dart';
 import 'package:FreeFlix/components/TabBarComponents.dart';
 import 'package:flutter/material.dart';
 
@@ -29,9 +30,7 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
-        drawer: Drawer(
-          child: Text("drawer"),
-        ),
+        drawer: DrawerComponent(),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (value) {

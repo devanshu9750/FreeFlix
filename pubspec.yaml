@@ -31,6 +31,7 @@ dependencies:
   firebase_core:
   firebase_database:
   velocity_x:
+  flutter_inappwebview:
 
 dev_dependencies:
   flutter_test:
