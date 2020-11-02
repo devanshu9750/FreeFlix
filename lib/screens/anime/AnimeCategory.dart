@@ -39,7 +39,7 @@ class _AnimeCategoryState extends State<AnimeCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: widget.category.text.make(),
+        title: widget.category.text.center.make(),
       ),
       body: (_loading)
           ? Center(
