@@ -17,7 +17,6 @@ class _AnimeComponentState extends State<AnimeComponent> {
   bool _loading = true;
   List<Map> data;
   int total = 10;
-  List<Map> highlyRated;
   List<String> categories = [
     "Action",
     "Comedy",
@@ -47,7 +46,6 @@ class _AnimeComponentState extends State<AnimeComponent> {
             : (a['imdb'].compareTo(b['imdb']) == 0)
                 ? 0
                 : 1);
-        highlyRated = data.sublist(0, 10);
         setState(() {
           _loading = false;
         });
@@ -70,7 +68,6 @@ class _AnimeComponentState extends State<AnimeComponent> {
             : (a['imdb'].compareTo(b['imdb']) == 0)
                 ? 0
                 : 1);
-        highlyRated = data.sublist(0, 10);
         setState(() {
           _loading = false;
         });
@@ -96,7 +93,8 @@ class _AnimeComponentState extends State<AnimeComponent> {
                 .bold
                 .make()
                 .pOnly(left: 20, top: 20),
-            HStack(highlyRated
+            HStack(data
+                    .sublist(0, 10)
                     .map((e) => GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
@@ -110,11 +108,11 @@ class _AnimeComponentState extends State<AnimeComponent> {
                               Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20)),
-                                child: Container(
-                                  height: 180,
-                                  width: 125,
-                                  child: Hero(
-                                    tag: e['title'],
+                                child: Hero(
+                                  tag: e['title'],
+                                  child: Container(
+                                    height: 180,
+                                    width: 125,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.network(
@@ -127,7 +125,7 @@ class _AnimeComponentState extends State<AnimeComponent> {
                               ),
                               SizedBox(
                                   width: 130,
-                                  height: 60,
+                                  height: 78,
                                   child: Text(
                                     e['title'].substring(6),
                                     textAlign: TextAlign.center,
@@ -145,7 +143,7 @@ class _AnimeComponentState extends State<AnimeComponent> {
                 .textStyle(Theme.of(context).textTheme.headline6)
                 .bold
                 .make()
-                .pOnly(left: 20, top: 10),
+                .pOnly(left: 20),
             HStack(categories
                     .map((e) => GestureDetector(
                           onTap: () {
@@ -187,8 +185,8 @@ class _AnimeComponentState extends State<AnimeComponent> {
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   mainAxisSpacing: 0,
                   crossAxisSpacing: 10,
-                  maxCrossAxisExtent: 130,
-                  childAspectRatio: 0.5),
+                  maxCrossAxisExtent: 150,
+                  childAspectRatio: 0.49),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -219,7 +217,7 @@ class _AnimeComponentState extends State<AnimeComponent> {
                     ),
                     SizedBox(
                         width: 130,
-                        height: 60,
+                        height: 78,
                         child: Text(
                           data[index + 10]['title'].substring(6),
                           textAlign: TextAlign.center,
@@ -228,7 +226,7 @@ class _AnimeComponentState extends State<AnimeComponent> {
                   ],
                 ).pOnly(left: 5, right: 5),
               ),
-            ).pOnly(top: 20)
+            ).pOnly(top: 20, bottom: 20)
           ]).scrollVertical();
   }
 }

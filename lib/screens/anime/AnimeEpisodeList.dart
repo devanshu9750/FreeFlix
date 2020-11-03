@@ -10,37 +10,40 @@ class AnimeEpisodeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Map> finalData = [];
+    data.forEach((key, value) {
+      finalData.add({"title": key, "id": value});
+    });
+    finalData.sort((a, b) => a['title'].compareTo(b["title"]));
     return Scaffold(
       appBar: AppBar(
         title: title.text.make(),
       ),
-      body: ListView.builder(
-        itemCount: data.length,
-        itemBuilder: (context, index) => GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => PlayVideo(
-                id: data["Episode - " +
-                    (((index + 1) < 10)
-                        ? "0" + (index + 1).toString()
-                        : (index + 1).toString())],
-              ),
-            ));
-          },
-          child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            child: ListTile(
-              trailing: Icon(Icons.arrow_forward_ios),
-              leading: Icon(Icons.play_circle_outline),
-              title: Text("Episode - " +
-                  (((index + 1) < 10)
-                      ? '0' + (index + 1).toString()
-                      : (index + 1).toString())),
-            ),
-          ),
-        ),
-      ).p12(),
+      body: VStack(finalData
+              .map((e) => GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => PlayVideo(
+                          id: e['id'],
+                        ),
+                      ));
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: ListTile(
+                        title: Text(e['title']),
+                        leading: Icon(
+                          Icons.play_circle_outline,
+                          size: 30,
+                        ),
+                        trailing: Icon(Icons.arrow_forward_ios),
+                      ),
+                    ),
+                  ))
+              .toList())
+          .scrollVertical()
+          .p12(),
     );
   }
 }
