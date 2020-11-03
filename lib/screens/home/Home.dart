@@ -1,6 +1,8 @@
+import 'package:FreeFlix/backend/AnimeSearchDelegate.dart';
 import 'package:FreeFlix/components/BodyComponents.dart';
 import 'package:FreeFlix/components/DrawerComponent.dart';
 import 'package:FreeFlix/components/TabBarComponents.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -26,7 +28,21 @@ class _HomeState extends State<Home> {
           actions: [
             IconButton(
               icon: Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () {
+                if (_currentIndex == 0) {
+                } else if (_currentIndex == 2) {
+                  if (AnimeSearchDelegate.data.isEmpty) {
+                    FirebaseDatabase.instance
+                        .reference()
+                        .child("anime")
+                        .onValue
+                        .listen((event) {
+                      AnimeSearchDelegate.data = event.snapshot.value;
+                    });
+                  }
+                  showSearch(context: context, delegate: AnimeSearchDelegate());
+                } else {}
+              },
             )
           ],
         ),

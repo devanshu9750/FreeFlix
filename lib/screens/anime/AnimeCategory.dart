@@ -52,8 +52,8 @@ class _AnimeCategoryState extends State<AnimeCategory> {
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   mainAxisSpacing: 0,
                   crossAxisSpacing: 10,
-                  maxCrossAxisExtent: 130,
-                  childAspectRatio: 0.5),
+                  maxCrossAxisExtent: 150,
+                  childAspectRatio: 0.49),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -84,7 +84,7 @@ class _AnimeCategoryState extends State<AnimeCategory> {
                     ),
                     SizedBox(
                         width: 130,
-                        height: 60,
+                        height: 78,
                         child: Text(
                           finalData[index]['title'].substring(6),
                           textAlign: TextAlign.center,
@@ -93,7 +93,7 @@ class _AnimeCategoryState extends State<AnimeCategory> {
                   ],
                 ).pOnly(left: 5, right: 5),
               ),
-            ).pOnly(top: 20),
+            ).pOnly(top: 20, bottom: 20),
     );
   }
 }

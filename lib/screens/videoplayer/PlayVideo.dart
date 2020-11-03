@@ -37,30 +37,37 @@ class _PlayVideoState extends State<PlayVideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Stack(
-            children: [
-              InAppWebView(
-                initialOptions: InAppWebViewGroupOptions(
-                    crossPlatform:
-                        InAppWebViewOptions(useOnDownloadStart: true)),
-                initialUrl: url,
-                onDownloadStart: (controller, url) async {},
-                onLoadStop: (controller, url) {
-                  setState(() {
-                    _loading = false;
-                  });
-                },
-              ),
-              (_loading)
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Stack()
-            ],
-          )),
+      body: Builder(
+        builder: (context) => SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
+              children: [
+                InAppWebView(
+                  initialOptions: InAppWebViewGroupOptions(
+                      crossPlatform:
+                          InAppWebViewOptions(useOnDownloadStart: true)),
+                  initialUrl: url,
+                  onDownloadStart: (controller, url) async {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                      "Download is not yet available !!",
+                    )));
+                  },
+                  onLoadStop: (controller, url) {
+                    setState(() {
+                      _loading = false;
+                    });
+                  },
+                ),
+                (_loading)
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Stack()
+              ],
+            )),
+      ),
     );
   }
 }
