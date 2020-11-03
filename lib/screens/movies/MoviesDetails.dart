@@ -122,7 +122,7 @@ class MoviesDetails extends StatelessWidget {
                   ],
                 ),
               ),
-            ).pOnly(top: 22),
+            ).pOnly(left: 15, right: 15, top: 20,bottom: 20),
           )
         ]).scrollVertical(),
       ),
