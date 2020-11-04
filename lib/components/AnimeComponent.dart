@@ -158,7 +158,7 @@ class _AnimeComponentState extends State<AnimeComponent> {
                             children: [
                               Card(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)),
+                                    borderRadius: BorderRadius.circular(20),),
                                 child: Container(
                                   height: 60,
                                   width: 60,
@@ -186,7 +186,7 @@ class _AnimeComponentState extends State<AnimeComponent> {
                   mainAxisSpacing: 0,
                   crossAxisSpacing: 10,
                   maxCrossAxisExtent: 150,
-                  childAspectRatio: 0.49),
+                  childAspectRatio: 0.46),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(

@@ -1,4 +1,5 @@
 import 'package:FreeFlix/backend/AnimeSearchDelegate.dart';
+import 'package:FreeFlix/backend/MovieSearchDelegate.dart';
 import 'package:FreeFlix/components/BodyComponents.dart';
 import 'package:FreeFlix/components/DrawerComponent.dart';
 import 'package:FreeFlix/components/TabBarComponents.dart';
@@ -30,6 +31,16 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.search),
               onPressed: () {
                 if (_currentIndex == 0) {
+                  if (MovieSearchDelegate.data.isEmpty) {
+                    FirebaseDatabase.instance
+                        .reference()
+                        .child("movies")
+                        .onValue
+                        .listen((event) {
+                      MovieSearchDelegate.data = event.snapshot.value;
+                    });
+                  }
+                  showSearch(context: context, delegate: MovieSearchDelegate());
                 } else if (_currentIndex == 2) {
                   if (AnimeSearchDelegate.data.isEmpty) {
                     FirebaseDatabase.instance
@@ -55,9 +66,13 @@ class _HomeState extends State<Home> {
             });
           },
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "Movies"),
-            BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "Series"),
-            BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "Anime")
+            BottomNavigationBarItem(
+              icon: Icon(Icons.local_movies),
+              label: "Movies",
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.movie), label: "Series"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.movie_filter_sharp), label: "Anime")
           ],
         ),
         body: BodyComponents.bodyComponent[_currentIndex],

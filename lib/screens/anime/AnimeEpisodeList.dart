@@ -29,8 +29,9 @@ class AnimeEpisodeList extends StatelessWidget {
                       ));
                     },
                     child: Card(
+                      color: Color.fromRGBO(31, 31, 31, 1),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                          borderRadius: BorderRadius.circular(20),side: BorderSide(color: Colors.white,width: 1)),
                       child: ListTile(
                         title: Text(e['title']),
                         leading: Icon(

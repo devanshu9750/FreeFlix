@@ -1,7 +1,7 @@
-import 'package:FreeFlix/screens/anime/AnimeDetail.dart';
+import 'package:FreeFlix/screens/movies/MoviesDetails.dart';
 import 'package:flutter/material.dart';
 
-class AnimeSearchDelegate extends SearchDelegate<String> {
+class MovieSearchDelegate extends SearchDelegate<String> {
   static Map data = {};
 
   @override
@@ -16,18 +16,14 @@ class AnimeSearchDelegate extends SearchDelegate<String> {
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-          icon: Icon(Icons.clear),
-          onPressed: () {
-            query = "";
-          })
-    ];
+    return [IconButton(icon: Icon(Icons.clear), onPressed: () {
+      query="";
+    })];
   }
 
   @override
   Widget buildLeading(BuildContext context) {
-    return IconButton(
+   return IconButton(
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
@@ -55,7 +51,7 @@ class AnimeSearchDelegate extends SearchDelegate<String> {
         itemBuilder: (context, index) => GestureDetector(
           onTap: () {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => AnimeDetail(
+              builder: (context) => MoviesDetails(
                 data: finalData[index],
               ),
             ));
@@ -91,8 +87,7 @@ class AnimeSearchDelegate extends SearchDelegate<String> {
         itemBuilder: (context, index) => GestureDetector(
           onTap: () {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => AnimeDetail(
-                data: finalData[index],
+              builder: (context) => MoviesDetails(data: finalData[index],
               ),
             ));
           },

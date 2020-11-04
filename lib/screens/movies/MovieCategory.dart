@@ -47,7 +47,7 @@ class _MovieCategoryState extends State<MovieCategory> {
                   mainAxisSpacing: 0,
                   crossAxisSpacing: 10,
                   maxCrossAxisExtent: 130,
-                  childAspectRatio: 0.5),
+                  childAspectRatio: 0.46),
               shrinkWrap: true,
               physics: ScrollPhysics(),
               itemCount: finalData.length,

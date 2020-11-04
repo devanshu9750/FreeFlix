@@ -202,11 +202,11 @@ class _MovieComponentState extends State<MovieComponent> {
               itemCount: data.sublist(10).length,
               physics: ScrollPhysics(),
               shrinkWrap: true,
-              padding: EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, childAspectRatio: 0.58),
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  mainAxisSpacing: 0,
+                  crossAxisSpacing: 10,
+                  maxCrossAxisExtent: 150,
+                  childAspectRatio: 0.46),
               itemBuilder: (context, i) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -223,20 +223,20 @@ class _MovieComponentState extends State<MovieComponent> {
                       child: Hero(
                         tag: data[i + 10]['title'],
                         child: Container(
+                          height: 180,
+                          width: 125,
                           child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.network(
-                                      data[i + 10]['posterurl'],
-                                      fit: BoxFit.cover,
-                                      height: 190,
-                                      width: 140))
-                              .px8(),
+                              borderRadius: BorderRadius.circular(25),
+                              child: Image.network(
+                                data[i + 10]['posterurl'],
+                                fit: BoxFit.cover,
+                              )).px8(),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 100,
                       width: 130,
+                      height: 78,
                       child: Column(
                         children: [
                           Text(data[i + 10]['title'],

@@ -50,42 +50,75 @@ class AnimeDetail extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                children: [
-                  Text(data['imdb']),
-                  "IMDB rating".text.make().pOnly(top: 5)
-                ],
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: BorderSide(color: Colors.yellow, width: 1)),
+                elevation: 10,
+                color: Color.fromRGBO(31,31,31,1),
+                child: Container(
+                  height: 80,
+                  width: 100,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(data['imdb'],style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),),
+                      "IMDB rating".text.make().pOnly(top: 5)
+                    ],
+                  ),
+                ),
               ),
-              Column(
-                children: [
-                  Text(data['seasons'].toString()),
-                  "Seasons".text.make().pOnly(top: 5)
-                ],
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: BorderSide(color: Colors.green, width: 1)),
+                elevation: 10,
+                color: Color.fromRGBO(31,31,31,1),
+                child: Container(
+                  height: 80,
+                  width: 100,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(data['seasons'].toString(),style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),),
+                      "Seasons".text.make().pOnly(top: 5)
+                    ],
+                  ),
+                ),
               )
             ],
           ).pOnly(top: 30),
           Center(
             child: Card(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
+                  borderRadius: BorderRadius.circular(20),
+                  side: BorderSide(color: Colors.blue)),
+              elevation: 10,
+              color: Color.fromRGBO(31,31,31,1),
               child: Container(
                 width: MediaQuery.of(context).size.width - 50,
                 child: Column(
                   children: [
                     "Plot"
                         .text
-                        .bold
                         .textStyle(Theme.of(context).textTheme.headline6)
-                        .make(),
+                        .color(Colors.blue)
+                        .center
+                        .bold
+                        .make()
+                        .pOnly(top: 10),
                     Text(
                       data['description'],
                       textAlign: TextAlign.justify,
-                    ).pOnly(top: 10)
+                      style: TextStyle(fontSize: 16),
+                    ).p16()
                   ],
                 ),
-              ).p16(),
-            ),
-          ).pOnly(top: 30),
+              ),
+            ).pOnly(left: 15, right: 15, top: 30, bottom: 0),
+          ),
           "Seasons"
               .text
               .textStyle(Theme.of(context).textTheme.headline6)
@@ -104,14 +137,19 @@ class AnimeDetail extends StatelessWidget {
                   ),
                 ));
               },
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: ListTile(
-                  title: Text('Season ' + (index + 1).toString()),
-                  trailing: IconButton(
-                    icon: Icon(Icons.arrow_forward_ios),
-                    onPressed: () {},
+              child: Container(
+                child: Card(
+                  color: Colors.black45,
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: BorderSide(color: Colors.white)),
+                  child: ListTile(
+                    title: Text('Season ' + (index + 1).toString()),
+                    trailing: IconButton(
+                      icon: Icon(Icons.arrow_forward_ios),
+                      onPressed: () {},
+                    ),
                   ),
                 ),
               ),

@@ -53,7 +53,7 @@ class _AnimeCategoryState extends State<AnimeCategory> {
                   mainAxisSpacing: 0,
                   crossAxisSpacing: 10,
                   maxCrossAxisExtent: 150,
-                  childAspectRatio: 0.49),
+                  childAspectRatio: 0.46),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
