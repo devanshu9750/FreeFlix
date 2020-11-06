@@ -51,7 +51,7 @@ class _PlayVideoState extends State<PlayVideo> {
                   onDownloadStart: (controller, url) async {
                     Scaffold.of(context).showSnackBar(SnackBar(
                         content: Text(
-                      "Download is not yet available !!",
+                      "Download is not available !!",
                     )));
                   },
                   onLoadStop: (controller, url) {

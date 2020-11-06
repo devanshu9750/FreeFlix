@@ -1,3 +1,4 @@
+import 'package:FreeFlix/screens/drawer/Starred.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -10,12 +11,32 @@ class DrawerComponent extends StatelessWidget {
         children: [
           ListTile(
             title: "Free Flix".text.size(22).make().pOnly(left: 10),
-            
           ),
-          Divider(thickness: 1,height: 10,color: Colors.white,),
-          ListTile(title: "Request".text.size(18).make(),leading: Icon(Icons.request_page_outlined),),
-          ListTile(title: "Report".text.size(18).make(),leading: Icon(Icons.report),)
-
+          Divider(
+            thickness: 1,
+            height: 10,
+            color: Colors.white,
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Starred(),
+              ));
+            },
+            child: ListTile(
+              title: "Starred".text.size(18).make(),
+              leading: Icon(Icons.star_border),
+            ),
+          ),
+          ListTile(
+            title: "Request".text.size(18).make(),
+            leading: Icon(Icons.request_page_outlined),
+          ),
+          ListTile(
+            title: "Report a Problem".text.size(18).make(),
+            leading: Icon(Icons.report),
+          )
         ],
       ),
     ));

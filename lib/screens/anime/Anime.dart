@@ -7,10 +7,10 @@ class Anime extends StatelessWidget {
     return TabBarView(
       children: [
         AnimeComponent(
-          type: 0,
+          type: 1,
         ),
         AnimeComponent(
-          type: 1,
+          type: 0,
         ),
         Container()
       ],

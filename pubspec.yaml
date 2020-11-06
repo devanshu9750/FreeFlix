@@ -32,6 +32,7 @@ dependencies:
   firebase_database:
   velocity_x:
   flutter_inappwebview:
+  shared_preferences:
 
 
 dev_dependencies:

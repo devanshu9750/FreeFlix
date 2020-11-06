@@ -16,10 +16,10 @@ class TabBarComponents {
     TabBar(
       tabs: [
         Tab(
-          text: "Subbed",
+          text: "Dubbed",
         ),
         Tab(
-          text: "Dubbed",
+          text: "Subbed",
         ),
         Tab(
           text: "Movies",
