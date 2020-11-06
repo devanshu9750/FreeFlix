@@ -1,28 +1,90 @@
+import 'dart:convert';
+
+import 'package:FreeFlix/backend/Data.dart';
 import 'package:FreeFlix/screens/anime/AnimeEpisodeList.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AnimeDetail extends StatelessWidget {
+class AnimeDetail extends StatefulWidget {
   final Map data;
 
   AnimeDetail({this.data});
 
   @override
+  _AnimeDetailState createState() => _AnimeDetailState();
+}
+
+class _AnimeDetailState extends State<AnimeDetail> {
+  bool _check;
+
+  @override
+  void initState() {
+    super.initState();
+    Map tempData = Data.data;
+    _check = tempData.containsKey(widget.data['title']);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          (_check)
+              ? Builder(
+                  builder: (context) => IconButton(
+                    icon: Icon(
+                      Icons.star,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {
+                      Data.data.removeWhere(
+                          (key, value) => (key == widget.data['title']));
+                      Data.prefs.setString("starred", jsonEncode(Data.data));
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Color.fromRGBO(31, 31, 31, 1),
+                          duration: Duration(seconds: 1),
+                          content: Text("Removed from Starred !!")
+                              .text
+                              .white
+                              .make()));
+                      setState(() {
+                        _check = false;
+                      });
+                    },
+                  ),
+                )
+              : Builder(
+                  builder: (context) => IconButton(
+                    icon: Icon(Icons.star_border),
+                    onPressed: () {
+                      Data.data[widget.data['title']] = widget.data;
+                      Data.prefs.setString("starred", jsonEncode(Data.data));
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text("Added to Starred !!").text.white.make(),
+                        backgroundColor: Color.fromRGBO(31, 31, 31, 1),
+                        duration: Duration(seconds: 1),
+                      ));
+                      setState(() {
+                        _check = true;
+                      });
+                    },
+                  ),
+                )
+        ],
+      ),
       body: SafeArea(
         child: VStack([
           Center(
             child: Hero(
-              tag: data['title'],
+              tag: widget.data['title'],
               child: Container(
                 height: 230,
                 width: 150,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.network(
-                    data['posterurl'],
+                    widget.data['posterurl'],
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -33,7 +95,7 @@ class AnimeDetail extends StatelessWidget {
             child: SizedBox(
               width: 250,
               child: Text(
-                data['title'],
+                widget.data['title'],
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline6,
               ).pOnly(top: 20),
@@ -43,7 +105,7 @@ class AnimeDetail extends StatelessWidget {
             child: SizedBox(
                 width: 250,
                 child: Text(
-                  data['genre'],
+                  widget.data['genre'],
                   textAlign: TextAlign.center,
                 )),
           ).pOnly(top: 5),
@@ -55,15 +117,18 @@ class AnimeDetail extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     side: BorderSide(color: Colors.yellow, width: 1)),
                 elevation: 10,
-                color: Color.fromRGBO(31,31,31,1),
+                color: Color.fromRGBO(31, 31, 31, 1),
                 child: Container(
                   height: 80,
                   width: 100,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(data['imdb'],style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),),
+                      Text(
+                        widget.data['imdb'],
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
                       "IMDB rating".text.make().pOnly(top: 5)
                     ],
                   ),
@@ -74,15 +139,18 @@ class AnimeDetail extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     side: BorderSide(color: Colors.green, width: 1)),
                 elevation: 10,
-                color: Color.fromRGBO(31,31,31,1),
+                color: Color.fromRGBO(31, 31, 31, 1),
                 child: Container(
                   height: 80,
                   width: 100,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(data['seasons'].toString(),style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),),
+                      Text(
+                        widget.data['seasons'].toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
                       "Seasons".text.make().pOnly(top: 5)
                     ],
                   ),
@@ -96,7 +164,7 @@ class AnimeDetail extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   side: BorderSide(color: Colors.blue)),
               elevation: 10,
-              color: Color.fromRGBO(31,31,31,1),
+              color: Color.fromRGBO(31, 31, 31, 1),
               child: Container(
                 width: MediaQuery.of(context).size.width - 50,
                 child: Column(
@@ -110,7 +178,7 @@ class AnimeDetail extends StatelessWidget {
                         .make()
                         .pOnly(top: 10),
                     Text(
-                      data['description'],
+                      widget.data['description'],
                       textAlign: TextAlign.justify,
                       style: TextStyle(fontSize: 16),
                     ).p16()
@@ -126,13 +194,13 @@ class AnimeDetail extends StatelessWidget {
               .make()
               .pOnly(left: 20, top: 20),
           ListView.builder(
-            itemCount: data['seasons'],
+            itemCount: widget.data['seasons'],
             shrinkWrap: true,
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => AnimeEpisodeList(
-                    data: data['Season ' + (index + 1).toString()],
+                    data: widget.data['Season ' + (index + 1).toString()],
                     title: 'Season ' + (index + 1).toString(),
                   ),
                 ));

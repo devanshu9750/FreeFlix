@@ -1,4 +1,5 @@
 import 'package:FreeFlix/backend/AnimeSearchDelegate.dart';
+import 'package:FreeFlix/backend/Data.dart';
 import 'package:FreeFlix/backend/MovieSearchDelegate.dart';
 import 'package:FreeFlix/components/BodyComponents.dart';
 import 'package:FreeFlix/components/DrawerComponent.dart';
@@ -13,6 +14,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    Data.initialize();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

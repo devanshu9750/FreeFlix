@@ -87,7 +87,7 @@ class _AnimeComponentState extends State<AnimeComponent> {
     return (_loading)
         ? Center(child: CircularProgressIndicator())
         : VStack([
-            "Highly Rated"
+            "Top Rated"
                 .text
                 .textStyle(Theme.of(context).textTheme.headline6)
                 .bold
