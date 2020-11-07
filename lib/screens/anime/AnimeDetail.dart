@@ -196,6 +196,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
           ListView.builder(
             itemCount: widget.data['seasons'],
             shrinkWrap: true,
+            physics: ScrollPhysics(),
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -214,10 +215,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
                       side: BorderSide(color: Colors.white)),
                   child: ListTile(
                     title: Text('Season ' + (index + 1).toString()),
-                    trailing: IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      onPressed: () {},
-                    ),
+                    trailing: Icon(Icons.arrow_forward_ios),
                   ),
                 ),
               ),
