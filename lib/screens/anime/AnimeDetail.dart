@@ -194,34 +194,58 @@ class _AnimeDetailState extends State<AnimeDetail> {
               .make()
               .pOnly(left: 20, top: 20),
           ListView.builder(
-            itemCount: widget.data['seasons'],
+            itemCount: (widget.data.containsKey("Movies"))
+                ? (widget.data['seasons'] + 1)
+                : widget.data['seasons'],
             shrinkWrap: true,
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => AnimeEpisodeList(
-                    data: widget.data['Season ' + (index + 1).toString()],
-                    title: 'Season ' + (index + 1).toString(),
-                  ),
-                ));
-              },
-              child: Container(
-                child: Card(
-                  color: Colors.black45,
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: BorderSide(color: Colors.white)),
-                  child: ListTile(
-                    title: Text('Season ' + (index + 1).toString()),
-                    trailing: IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      onPressed: () {},
+            physics: ScrollPhysics(),
+            itemBuilder: (context, index) => (index == widget.data['seasons'])
+                ? GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => AnimeEpisodeList(
+                          data: widget.data['Movies'],
+                          title: 'Movies',
+                        ),
+                      ));
+                    },
+                    child: Container(
+                      child: Card(
+                        color: Colors.black45,
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide(color: Colors.white)),
+                        child: ListTile(
+                          title: Text('Movies'),
+                          trailing: Icon(Icons.arrow_forward_ios),
+                        ),
+                      ),
+                    ),
+                  )
+                : GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => AnimeEpisodeList(
+                          data: widget.data['Season ' + (index + 1).toString()],
+                          title: 'Season ' + (index + 1).toString(),
+                        ),
+                      ));
+                    },
+                    child: Container(
+                      child: Card(
+                        color: Colors.black45,
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide(color: Colors.white)),
+                        child: ListTile(
+                          title: Text('Season ' + (index + 1).toString()),
+                          trailing: Icon(Icons.arrow_forward_ios),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
           ).pOnly(left: 15, right: 15, top: 10, bottom: 20)
         ]).scrollVertical(),
       ),
