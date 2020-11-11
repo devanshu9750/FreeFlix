@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:FreeFlix/backend/Data.dart';
 import 'package:FreeFlix/screens/videoplayer/PlayVideo.dart';
 import 'package:flutter/material.dart';
