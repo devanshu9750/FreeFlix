@@ -1,10 +1,28 @@
+import 'dart:convert';
+
+import 'package:FreeFlix/backend/Data.dart';
 import 'package:FreeFlix/screens/videoplayer/PlayVideo.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class AnimeMovieDetail extends StatelessWidget {
+class AnimeMovieDetail extends StatefulWidget {
   final data;
   AnimeMovieDetail({this.data});
+
+  @override
+  _AnimeMovieDetailState createState() => _AnimeMovieDetailState();
+}
+
+class _AnimeMovieDetailState extends State<AnimeMovieDetail> {
+  bool _check;
+
+  @override
+  void initState() {
+    super.initState();
+    Map tempData = Data.data;
+    _check = tempData.containsKey(widget.data['title']);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,23 +38,67 @@ class AnimeMovieDetail extends StatelessWidget {
         child: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => PlayVideo(id: data['id'])));
+                builder: (context) => PlayVideo(id: widget.data['id'])));
           },
           backgroundColor: Colors.black,
           child: Icon(Icons.play_arrow, color: Colors.red),
         ),
       ),
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          (_check)
+              ? Builder(
+                  builder: (context) => IconButton(
+                    icon: Icon(
+                      Icons.star,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {
+                      Data.data.removeWhere(
+                          (key, value) => (key == widget.data['title']));
+                      Data.prefs.setString("starred", jsonEncode(Data.data));
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Color.fromRGBO(31, 31, 31, 1),
+                          duration: Duration(seconds: 1),
+                          content: Text("Removed from Starred !!")
+                              .text
+                              .white
+                              .make()));
+                      setState(() {
+                        _check = false;
+                      });
+                    },
+                  ),
+                )
+              : Builder(
+                  builder: (context) => IconButton(
+                    icon: Icon(Icons.star_border),
+                    onPressed: () {
+                      Data.data[widget.data['title']] = widget.data;
+                      Data.prefs.setString("starred", jsonEncode(Data.data));
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text("Added to Starred !!").text.white.make(),
+                        backgroundColor: Color.fromRGBO(31, 31, 31, 1),
+                        duration: Duration(seconds: 1),
+                      ));
+                      setState(() {
+                        _check = true;
+                      });
+                    },
+                  ),
+                )
+        ],
+      ),
       body: SafeArea(
         child: VStack([
           Center(
             child: Hero(
-              tag: data['title'],
+              tag: widget.data['title'],
               child: Container(
                 height: 230,
                 width: 150,
                 child: ClipRRect(
-                  child: Image.network(data['posterurl']),
+                  child: Image.network(widget.data['posterurl']),
                   borderRadius: BorderRadius.circular(25),
                 ),
               ).pOnly(top: 30),
@@ -46,9 +108,9 @@ class AnimeMovieDetail extends StatelessWidget {
             child: SizedBox(
               width: 250,
               child: Text(
-                (data['title'][1] == "D")
-                    ? "(Dub) " + data['title'].substring(6)
-                    : "(Sub) " + data['title'].substring(6),
+                (widget.data['title'][1] == "D")
+                    ? "(Dub) " + widget.data['title'].substring(6)
+                    : "(Sub) " + widget.data['title'].substring(6),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline6,
               ).pOnly(top: 20),
@@ -58,7 +120,7 @@ class AnimeMovieDetail extends StatelessWidget {
             child: SizedBox(
               width: 250,
               child: Text(
-                data['genre'],
+                widget.data['genre'],
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.grey),
               ),
@@ -82,7 +144,7 @@ class AnimeMovieDetail extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            data['imdb'],
+                            widget.data['imdb'],
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
                           ),
@@ -111,7 +173,7 @@ class AnimeMovieDetail extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              data['duration'],
+                              widget.data['duration'],
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
@@ -146,7 +208,7 @@ class AnimeMovieDetail extends StatelessWidget {
                         .make()
                         .pOnly(top: 10),
                     Text(
-                      data['description'],
+                      widget.data['description'],
                       textAlign: TextAlign.justify,
                       style: TextStyle(fontSize: 16),
                     ).p16()
@@ -174,11 +236,11 @@ class AnimeMovieDetail extends StatelessWidget {
                       .make()
                       .pOnly(top: 10),
                   Text(
-                    data['release'].split("-")[2] +
+                    widget.data['release'].split("-")[2] +
                         "-" +
-                        data['release'].split("-")[1] +
+                        widget.data['release'].split("-")[1] +
                         "-" +
-                        data['release'].split("-")[0],
+                        widget.data['release'].split("-")[0],
                     textAlign: TextAlign.justify,
                     style: TextStyle(fontSize: 16),
                   ).p16()

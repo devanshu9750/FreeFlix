@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:FreeFlix/backend/Data.dart';
 import 'package:FreeFlix/screens/anime/AnimeEpisodeList.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AnimeDetail extends StatefulWidget {
   final Map data;
