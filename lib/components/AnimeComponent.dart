@@ -1,10 +1,12 @@
 import 'package:FreeFlix/screens/anime/AnimeCategory.dart';
 import 'package:FreeFlix/screens/anime/AnimeDetail.dart';
+import 'package:FreeFlix/screens/anime/AnimeMovieDetail.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AnimeComponent extends StatefulWidget {
+  @required
   final int type;
 
   AnimeComponent({this.type});
@@ -19,6 +21,7 @@ class _AnimeComponentState extends State<AnimeComponent> {
   int total = 10;
   List<String> categories = [
     "Action",
+    "Adventure",
     "Comedy",
     "Drama",
     "Romance",
@@ -28,51 +31,27 @@ class _AnimeComponentState extends State<AnimeComponent> {
   ];
 
   getData() async {
-    if (widget.type == 0) {
-      FirebaseDatabase.instance
-          .reference()
-          .child("anime")
-          .orderByChild("type")
-          .equalTo(0)
-          .onValue
-          .listen((event) {
-        data = [];
-        event.snapshot.value.forEach((key, value) {
-          value['title'] = key;
-          data.add(value);
-        });
-        data.sort((a, b) => (a['imdb'].compareTo(b['imdb']) == 1)
-            ? -1
-            : (a['imdb'].compareTo(b['imdb']) == 0)
-                ? 0
-                : 1);
-        setState(() {
-          _loading = false;
-        });
+    FirebaseDatabase.instance
+        .reference()
+        .child("anime")
+        .orderByChild("type")
+        .equalTo(widget.type)
+        .onValue
+        .listen((event) {
+      data = [];
+      event.snapshot.value.forEach((key, value) {
+        value['title'] = key;
+        data.add(value);
       });
-    } else if (widget.type == 1) {
-      FirebaseDatabase.instance
-          .reference()
-          .child("anime")
-          .orderByChild("type")
-          .equalTo(1)
-          .onValue
-          .listen((event) {
-        data = [];
-        event.snapshot.value.forEach((key, value) {
-          value['title'] = key;
-          data.add(value);
-        });
-        data.sort((a, b) => (a['imdb'].compareTo(b['imdb']) == 1)
-            ? -1
-            : (a['imdb'].compareTo(b['imdb']) == 0)
-                ? 0
-                : 1);
-        setState(() {
-          _loading = false;
-        });
+      data.sort((a, b) => (a['imdb'].compareTo(b['imdb']) == 1)
+          ? -1
+          : (a['imdb'].compareTo(b['imdb']) == 0)
+              ? 0
+              : 1);
+      setState(() {
+        _loading = false;
       });
-    }
+    });
   }
 
   @override
@@ -97,6 +76,14 @@ class _AnimeComponentState extends State<AnimeComponent> {
                     .sublist(0, 10)
                     .map((e) => GestureDetector(
                           onTap: () {
+                            if (widget.type == 2) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => AnimeMovieDetail(
+                                  data: e,
+                                ),
+                              ));
+                              return;
+                            }
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => AnimeDetail(
                                 data: e,
@@ -127,7 +114,11 @@ class _AnimeComponentState extends State<AnimeComponent> {
                                   width: 130,
                                   height: 78,
                                   child: Text(
-                                    e['title'].substring(6),
+                                    (widget.type == 2)
+                                        ? (e['title'][1] == "D")
+                                            ? "(Dub) " + e['title'].substring(6)
+                                            : "(Sub) " + e['title'].substring(6)
+                                        : e['title'].substring(6),
                                     textAlign: TextAlign.center,
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
@@ -158,7 +149,8 @@ class _AnimeComponentState extends State<AnimeComponent> {
                             children: [
                               Card(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
                                 child: Container(
                                   height: 60,
                                   width: 60,
@@ -189,6 +181,13 @@ class _AnimeComponentState extends State<AnimeComponent> {
                   childAspectRatio: 0.46),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
+                  if (widget.type == 2) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          AnimeMovieDetail(data: data.sublist(10)[index]),
+                    ));
+                    return;
+                  }
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => AnimeDetail(
                       data: data.sublist(10)[index],
@@ -219,7 +218,13 @@ class _AnimeComponentState extends State<AnimeComponent> {
                         width: 130,
                         height: 78,
                         child: Text(
-                          data[index + 10]['title'].substring(6),
+                          (widget.type == 2)
+                              ? (data[index + 10]['title'][1] == "D")
+                                  ? "(Dub) " +
+                                      data[index + 10]['title'].substring(6)
+                                  : "(Sub) " +
+                                      data[index + 10]['title'].substring(6)
+                              : data[index + 10]['title'].substring(6),
                           textAlign: TextAlign.center,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ).pOnly(top: 6))
