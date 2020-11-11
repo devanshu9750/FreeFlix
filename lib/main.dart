@@ -11,12 +11,15 @@ void main() {
   _firebaseMessaging.configure(
     onLaunch: (message) {
       print("on launch");
+      return;
     },
     onResume: (message) {
       print("on resume");
+      return;
     },
     onMessage: (message) {
       print("on message");
+      return;
     },
   );
   runApp(MaterialApp(
