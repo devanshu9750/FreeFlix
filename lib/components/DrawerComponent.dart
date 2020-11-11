@@ -1,3 +1,5 @@
+import 'package:FreeFlix/screens/drawer/Report.dart';
+import 'package:FreeFlix/screens/drawer/Request.dart';
 import 'package:FreeFlix/screens/drawer/Starred.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -29,13 +31,26 @@ class DrawerComponent extends StatelessWidget {
               leading: Icon(Icons.star_border),
             ),
           ),
-          ListTile(
-            title: "Request".text.size(18).make(),
-            leading: Icon(Icons.request_page_outlined),
+          InkWell(
+            onTap: (){
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Request()));
+            },
+                      child: ListTile(
+              title: "Request".text.size(18).make(),
+              leading: Icon(Icons.request_page_outlined),
+            ),
           ),
-          ListTile(
-            title: "Report a Problem".text.size(18).make(),
-            leading: Icon(Icons.report),
+          InkWell(
+            onTap: (){
+              
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Report()));
+            },
+                      child: ListTile(
+              title: "Report a Problem".text.size(18).make(),
+              leading: Icon(Icons.report),
+            ),
           )
         ],
       ),

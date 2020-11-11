@@ -68,12 +68,14 @@ class _MovieComponentState extends State<MovieComponent> {
   }
 
   List<String> categories = [
-    "Action",
+   "Action",
     "Comedy",
     "Drama",
-    "Romance",
     "Fantasy",
-    "Thriller"
+    "Mystery",
+    "Romance",
+    "Sci-fi",
+    "Thriller",
   ];
   @override
   void initState() {
@@ -236,7 +238,7 @@ class _MovieComponentState extends State<MovieComponent> {
                     ),
                     SizedBox(
                       width: 130,
-                      height: 78,
+                      height: 86,
                       child: Column(
                         children: [
                           Text(data[i + 10]['title'],

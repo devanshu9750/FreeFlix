@@ -1,21 +1,19 @@
 import 'dart:convert';
-
 import 'package:FreeFlix/backend/Data.dart';
 import 'package:FreeFlix/screens/anime/AnimeEpisodeList.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class AnimeDetail extends StatefulWidget {
+class SeriesDetails extends StatefulWidget {
   final Map data;
 
-  AnimeDetail({this.data});
+  SeriesDetails({this.data});
 
   @override
-  _AnimeDetailState createState() => _AnimeDetailState();
+  _SeriesDetailsState createState() => _SeriesDetailsState();
 }
 
-class _AnimeDetailState extends State<AnimeDetail> {
+class _SeriesDetailsState extends State<SeriesDetails> {
   bool _check;
 
   @override
