@@ -12,7 +12,9 @@ class Anime extends StatelessWidget {
         AnimeComponent(
           type: 0,
         ),
-        Container()
+        AnimeComponent(
+          type: 2,
+        )
       ],
     );
   }

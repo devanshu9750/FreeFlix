@@ -33,6 +33,7 @@ dependencies:
   velocity_x:
   flutter_inappwebview:
   shared_preferences:
+  firebase_messaging:
 
 
 dev_dependencies:
