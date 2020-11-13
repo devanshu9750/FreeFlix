@@ -26,14 +26,7 @@ class MoviesDetails extends StatelessWidget {
           child: Icon(Icons.play_arrow, color: Colors.red),
         ),
       ),
-      appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.star_border,),
-          )
-        ],
-      ),
+      appBar: AppBar(),
       body: SafeArea(
         child: VStack([
           Center(
@@ -43,8 +36,8 @@ class MoviesDetails extends StatelessWidget {
                 height: 230,
                 width: 150,
                 child: ClipRRect(
-                  child: Image.network(data['posterurl'],fit: BoxFit.fill,),
-                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(data['posterurl']),
+                  borderRadius: BorderRadius.circular(25),
                 ),
               ).pOnly(top: 30),
             ),
@@ -79,7 +72,7 @@ class MoviesDetails extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         side: BorderSide(color: Colors.yellow, width: 1)),
                     elevation: 10,
-                    color: Color.fromRGBO(31, 31, 31, 1),
+                    color:Color.fromRGBO(31,31,31,1),
                     child: Container(
                       height: 80,
                       width: 100,
@@ -108,7 +101,7 @@ class MoviesDetails extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         side: BorderSide(color: Colors.green, width: 1)),
                     elevation: 10,
-                    color: Color.fromRGBO(31, 31, 31, 1),
+                    color: Color.fromRGBO(31,31,31,1),
                     child: Container(
                         height: 80,
                         width: 100,
@@ -137,7 +130,7 @@ class MoviesDetails extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   side: BorderSide(color: Colors.blue, width: 1)),
               elevation: 10,
-              color: Color.fromRGBO(31, 31, 31, 1),
+              color: Color.fromRGBO(31,31,31,1),
               child: Container(
                 width: MediaQuery.of(context).size.width - 50,
                 child: Column(
@@ -165,7 +158,7 @@ class MoviesDetails extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 side: BorderSide(color: Colors.deepPurpleAccent, width: 1)),
             elevation: 10,
-            color: Color.fromRGBO(31, 31, 31, 1),
+            color: Color.fromRGBO(31,31,31,1),
             child: Container(
               width: 180,
               child: Column(

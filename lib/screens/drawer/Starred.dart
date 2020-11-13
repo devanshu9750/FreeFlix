@@ -1,6 +1,5 @@
 import 'package:FreeFlix/backend/Data.dart';
 import 'package:FreeFlix/screens/anime/AnimeDetail.dart';
-import 'package:FreeFlix/screens/series/SeriesDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -44,12 +43,6 @@ class _StarredState extends State<Starred> {
                   data: data[index],
                 ),
               ));
-            } else if (data[index].containsKey("seasons")) {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => SeriesDetails(
-                  data: data[index],
-                ),
-              ));
             }
           },
           child: Column(
@@ -75,7 +68,8 @@ class _StarredState extends State<Starred> {
               SizedBox(
                   width: 130,
                   height: 78,
-                  child: Text(data[index]['title'],
+                  child: Text(
+                    data[index]['title'].substring(6),
                     textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ).pOnly(top: 6))
