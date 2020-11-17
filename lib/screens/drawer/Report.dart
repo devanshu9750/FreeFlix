@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:velocity_x/velocity_x.dart';
 
+// ignore: must_be_immutable
 class Report extends StatelessWidget {
   String prb = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: "Report".text.make(),
+        title: "Report a Problem".text.make(),
       ),
       body: VStack([
         TextFormField(
@@ -25,7 +26,7 @@ class Report extends StatelessWidget {
                   fontSize: 15,
                   fontWeight: FontWeight.bold),
               hintText:
-                  "Eg.  Anime- (Dubbed) My hero acaademia Season 2  episode 1 ",
+                  "Eg. Anime - (Dubbed) My hero acaademia Season 2 episode 1 has error",
               contentPadding: EdgeInsets.all(10),
               enabledBorder: OutlineInputBorder(
                 gapPadding: 20,
@@ -42,17 +43,23 @@ class Report extends StatelessWidget {
               child: "Submit".text.white.make(),
               splashColor: Colors.red,
               onPressed: () {
-                 const _chars =
-                      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-                  Random _rnd = Random();
+                if (prb == "") {
+                  Navigator.of(context).pop();
+                  return;
+                }
+                const _chars =
+                    'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+                Random _rnd = Random();
 
-                  String getRandomString(int length) =>
-                      String.fromCharCodes(Iterable.generate(
-                          length,
-                          (_) =>
-                              _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-                
-                FirebaseDatabase.instance.reference().child("report").child(getRandomString(20)).update({"problems":prb});
+                String getRandomString(int length) =>
+                    String.fromCharCodes(Iterable.generate(length,
+                        (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
+                FirebaseDatabase.instance
+                    .reference()
+                    .child("report")
+                    .child(getRandomString(20))
+                    .update({"problems": prb});
                 Navigator.of(context).pop();
               }),
         )

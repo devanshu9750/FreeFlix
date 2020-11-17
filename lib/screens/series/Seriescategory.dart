@@ -86,7 +86,7 @@ class _SeriesCategoryState extends State<SeriesCategory> {
                         width: 130,
                         height: 78,
                         child: Text(
-                          finalData[index]['title'].substring(6),
+                          finalData[index]['title'],
                           textAlign: TextAlign.center,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ).pOnly(top: 6))

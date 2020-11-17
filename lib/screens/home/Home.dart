@@ -1,6 +1,7 @@
 import 'package:FreeFlix/backend/AnimeSearchDelegate.dart';
 import 'package:FreeFlix/backend/Data.dart';
 import 'package:FreeFlix/backend/MovieSearchDelegate.dart';
+import 'package:FreeFlix/backend/SeriesSearchDelegate.dart';
 import 'package:FreeFlix/components/BodyComponents.dart';
 import 'package:FreeFlix/components/DrawerComponent.dart';
 import 'package:FreeFlix/components/TabBarComponents.dart';
@@ -59,7 +60,19 @@ class _HomeState extends State<Home> {
                     });
                   }
                   showSearch(context: context, delegate: AnimeSearchDelegate());
-                } else {}
+                } else {
+                  if (SeriesSearchDelegate.data.isEmpty) {
+                    FirebaseDatabase.instance
+                        .reference()
+                        .child("series")
+                        .onValue
+                        .listen((event) {
+                      SeriesSearchDelegate.data = event.snapshot.value;
+                    });
+                  }
+                  showSearch(
+                      context: context, delegate: SeriesSearchDelegate());
+                }
               },
             )
           ],
