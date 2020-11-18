@@ -206,7 +206,7 @@ class _MovieComponentState extends State<MovieComponent> {
                   mainAxisSpacing: 0,
                   crossAxisSpacing: 10,
                   maxCrossAxisExtent: 150,
-                  childAspectRatio: 0.46),
+                  childAspectRatio: 0.44),
               itemBuilder: (context, i) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -236,7 +236,7 @@ class _MovieComponentState extends State<MovieComponent> {
                     ),
                     SizedBox(
                       width: 130,
-                      height: 78,
+                      height: 110,
                       child: Column(
                         children: [
                           Text(data[i + 10]['title'],

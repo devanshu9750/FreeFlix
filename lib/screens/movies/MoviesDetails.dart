@@ -72,7 +72,7 @@ class MoviesDetails extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         side: BorderSide(color: Colors.yellow, width: 1)),
                     elevation: 10,
-                    color:Color.fromRGBO(31,31,31,1),
+                    color: Color.fromRGBO(31, 31, 31, 1),
                     child: Container(
                       height: 80,
                       width: 100,
@@ -101,7 +101,7 @@ class MoviesDetails extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         side: BorderSide(color: Colors.green, width: 1)),
                     elevation: 10,
-                    color: Color.fromRGBO(31,31,31,1),
+                    color: Color.fromRGBO(31, 31, 31, 1),
                     child: Container(
                         height: 80,
                         width: 100,
@@ -130,7 +130,7 @@ class MoviesDetails extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   side: BorderSide(color: Colors.blue, width: 1)),
               elevation: 10,
-              color: Color.fromRGBO(31,31,31,1),
+              color: Color.fromRGBO(31, 31, 31, 1),
               child: Container(
                 width: MediaQuery.of(context).size.width - 50,
                 child: Column(
@@ -158,7 +158,7 @@ class MoviesDetails extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 side: BorderSide(color: Colors.deepPurpleAccent, width: 1)),
             elevation: 10,
-            color: Color.fromRGBO(31,31,31,1),
+            color: Color.fromRGBO(31, 31, 31, 1),
             child: Container(
               width: 180,
               child: Column(
@@ -172,7 +172,11 @@ class MoviesDetails extends StatelessWidget {
                       .make()
                       .pOnly(top: 10),
                   Text(
-                    data['release'],
+                    data['release'].split('-')[2] +
+                        "-" +
+                        data['release'].split('-')[1] +
+                        "-" +
+                        data['release'].split('-')[0],
                     textAlign: TextAlign.justify,
                     style: TextStyle(fontSize: 16),
                   ).p16()

@@ -84,14 +84,14 @@ class _MovieCategoryState extends State<MovieCategory> {
                           width: 130,
                           height: 60,
                           child: Text(
-                          finalData[index]['title'],
+                            finalData[index]['title'],
                             textAlign: TextAlign.center,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ).pOnly(top: 6))
                     ],
                   ).pOnly(left: 5, right: 5),
                 );
-              }),
+              }).pOnly(top: 15),
     );
   }
 }
