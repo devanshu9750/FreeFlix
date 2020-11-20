@@ -1,58 +1,39 @@
-import 'package:FreeFlix/screens/home/Home.dart';
-import 'package:flutter/material.dart';
+import 'package:FreeFlix/screens/Home.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  _firebaseMessaging.requestNotificationPermissions();
-  _firebaseMessaging.configure(
-    onLaunch: (message) {
-      print("on launch");
-      return;
-    },
-    onResume: (message) {
-      print("on resume");
-      return;
-    },
-    onMessage: (message) {
-      print("on message");
-      return;
-    },
-  );
   runApp(MaterialApp(
     home: App(),
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      brightness: Brightness.dark,
-    ),
+    theme: ThemeData(brightness: Brightness.dark),
   ));
 }
 
 class App extends StatelessWidget {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initialization,
+      future: Firebase.initializeApp(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Scaffold(
             body: Center(
-              child: Text("Error !!"),
+              child: Text(
+                "Something went wrong !!",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           );
         }
+
         if (snapshot.connectionState == ConnectionState.done) {
           return Home();
         }
+
         return Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
+          body: Center(child: CircularProgressIndicator()),
         );
       },
     );

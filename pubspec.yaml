@@ -29,12 +29,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   firebase_core:
-  firebase_database:
   velocity_x:
-  flutter_inappwebview:
-  shared_preferences:
+  cloud_firestore:
   firebase_messaging:
-
+  flutter_inappwebview:
 
 dev_dependencies:
   flutter_test:

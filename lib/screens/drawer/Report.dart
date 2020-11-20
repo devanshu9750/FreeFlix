@@ -1,69 +1,64 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:velocity_x/velocity_x.dart';
 
 // ignore: must_be_immutable
 class Report extends StatelessWidget {
-  String prb = "";
+  String report = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: "Report a Problem".text.make(),
+        title: "Report".text.make(),
       ),
-      body: VStack([
-        TextFormField(
-          onChanged: (value) {
-            prb = value;
-          },
-          maxLines: 10,
-          scrollPhysics: ScrollPhysics(),
-          decoration: InputDecoration(
-              labelText: "Problems",
-              labelStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
-              hintText:
-                  "Eg. Anime - (Dubbed) My hero acaademia Season 2 episode 1 has error",
-              contentPadding: EdgeInsets.all(10),
-              enabledBorder: OutlineInputBorder(
-                gapPadding: 20,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)))),
-        ).p(20),
-        Center(
-          child: RaisedButton(
-              color: Colors.black45,
-              elevation: 20,
-              padding: EdgeInsets.only(left: 60, right: 60),
-              child: "Submit".text.white.make(),
-              splashColor: Colors.red,
-              onPressed: () {
-                if (prb == "") {
-                  Navigator.of(context).pop();
-                  return;
+      body: Builder(
+        builder: (context) => Column(
+          children: [
+            TextFormField(
+              onChanged: (value) {
+                report = value;
+              },
+              maxLines: 10,
+              scrollPhysics: ScrollPhysics(),
+              decoration: InputDecoration(
+                  labelText: "Report",
+                  labelStyle: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                  hintText:
+                      "Example - Peeky Blinders Season 1 Episode 10 has error",
+                  contentPadding: EdgeInsets.all(10),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Vx.white),
+                      borderRadius: BorderRadius.all(Radius.circular(10)))),
+            ).p(20),
+            RaisedButton(
+              onPressed: () async {
+                FocusScopeNode currentFocus = FocusScope.of(context);
+                if (!currentFocus.hasPrimaryFocus) {
+                  currentFocus.unfocus();
                 }
-                const _chars =
-                    'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-                Random _rnd = Random();
-
-                String getRandomString(int length) =>
-                    String.fromCharCodes(Iterable.generate(length,
-                        (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-
-                FirebaseDatabase.instance
-                    .reference()
-                    .child("report")
-                    .child(getRandomString(20))
-                    .update({"problems": prb});
-                Navigator.of(context).pop();
-              }),
-        )
-      ]).scrollVertical(),
+                String token = await FirebaseMessaging().getToken();
+                if (report != "") {
+                  FirebaseFirestore.instance
+                      .collection("reports")
+                      .add({"report": report, "token": token}).then((value) {
+                    context.showToast(
+                      msg: "Thank You for Informing !!",
+                      bgColor: Vx.black,
+                      textColor: Vx.white,
+                    );
+                  });
+                }
+              },
+              color: Vx.black,
+              child: "Submit".text.make(),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
