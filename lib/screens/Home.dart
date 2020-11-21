@@ -4,9 +4,9 @@ import 'package:FreeFlix/data/SearchData.dart';
 import 'package:FreeFlix/screens/drawer/Report.dart';
 import 'package:FreeFlix/screens/drawer/Request.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../component/HomeBodyItems.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,21 +20,69 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   TabController anime;
   TabController movies;
   TabController series;
+  MobileAdTargetingInfo targetingInfo;
+  BannerAd myBanner;
 
   @override
   void initState() {
     super.initState();
+    targetingInfo = MobileAdTargetingInfo(
+      keywords: <String>['wallpaper'],
+      childDirected: false,
+      testDevices: <String>[],
+    );
+    myBanner = BannerAd(
+      adUnitId: BannerAd.testAdUnitId,
+      size: AdSize.banner,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("BannerAd event is $event");
+      },
+    );
+    myBanner
+      ..load()
+      ..show(
+        anchorOffset: 60.0,
+        horizontalCenterOffset: 10.0,
+        anchorType: AnchorType.bottom,
+      );
     movies = TabController(length: 2, vsync: this);
     anime = TabController(length: 3, vsync: this);
     series = TabController(length: 1, vsync: this);
     homeBodyItems = [
-      Movies(
+      TabBarView(
         controller: movies,
+        children: [
+          MainBody(
+            collection: "movies",
+            type: 1,
+          ),
+          MainBody(
+            collection: "movies",
+            type: 0,
+          )
+        ],
       ),
-      Series(
+      TabBarView(
         controller: series,
+        children: [
+          MainBody(
+            collection: "series",
+            type: 0,
+          )
+        ],
       ),
-      Anime(controller: anime),
+      TabBarView(
+        controller: anime,
+        children: [
+          MainBody(
+            collection: "anime",
+            type: 0,
+          ),
+          Container(),
+          Container()
+        ],
+      ),
     ];
     tabBarItems = [
       TabBar(
@@ -68,6 +116,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ],
       )
     ];
+  }
+
+  @override
+  void dispose() {
+    myBanner?.dispose();
+    super.dispose();
   }
 
   @override

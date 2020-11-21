@@ -1,9 +1,12 @@
 import 'package:FreeFlix/screens/Home.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FirebaseAdMob.instance
+      .initialize(appId: "ca-app-pub-1508391904647076~4705628668");
   runApp(MaterialApp(
     home: App(),
     debugShowCheckedModeBanner: false,

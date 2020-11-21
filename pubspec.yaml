@@ -33,6 +33,7 @@ dependencies:
   cloud_firestore:
   firebase_messaging:
   flutter_inappwebview:
+  firebase_admob: ^0.10.2
 
 dev_dependencies:
   flutter_test:
