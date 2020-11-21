@@ -4,6 +4,7 @@ import 'package:FreeFlix/screens/detail/SDetailPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'Ads.dart';
 
 class MainBody extends StatelessWidget {
   final String collection;
@@ -53,6 +54,7 @@ class MainBody extends StatelessWidget {
                   .sublist(0, 10)
                   .map((document) => GestureDetector(
                         onTap: () {
+                          Ads.disposeAd();
                           if (document.data().containsKey("seasons")) {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => SDetailPage(
@@ -113,6 +115,7 @@ class MainBody extends StatelessWidget {
           HStack(categories
                   .map((category) => GestureDetector(
                         onTap: () async {
+                          Ads.disposeAd();
                           List<QueryDocumentSnapshot> data = [];
                           snapshot.data.docs.forEach((document) {
                             if (document
@@ -165,6 +168,7 @@ class MainBody extends StatelessWidget {
                 .sublist(10)
                 .map((document) => GestureDetector(
                       onTap: () {
+                        Ads.disposeAd();
                         if (document.data().containsKey("seasons")) {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => SDetailPage(

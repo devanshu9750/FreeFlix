@@ -3,10 +3,10 @@ import 'package:FreeFlix/data/SearchData.dart';
 import 'package:FreeFlix/screens/drawer/Report.dart';
 import 'package:FreeFlix/screens/drawer/Request.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../component/HomeBodyItems.dart';
+import '../component/Ads.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,32 +20,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   TabController anime;
   TabController movies;
   TabController series;
-  MobileAdTargetingInfo targetingInfo;
-  BannerAd myBanner;
 
   @override
   void initState() {
     super.initState();
-    targetingInfo = MobileAdTargetingInfo(
-      keywords: <String>['wallpaper'],
-      childDirected: false,
-      testDevices: <String>[],
-    );
-    myBanner = BannerAd(
-      adUnitId: BannerAd.testAdUnitId,
-      size: AdSize.banner,
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("BannerAd event is $event");
-      },
-    );
-    myBanner
-      ..load()
-      ..show(
-        anchorOffset: 60.0,
-        horizontalCenterOffset: 10.0,
-        anchorType: AnchorType.bottom,
-      );
+    Ads.showAd();
     movies = TabController(length: 2, vsync: this);
     anime = TabController(length: 3, vsync: this);
     series = TabController(length: 1, vsync: this);
@@ -96,7 +75,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    myBanner?.dispose();
+    anime.dispose();
+    series.dispose();
+    movies.dispose();
     super.dispose();
   }
 
