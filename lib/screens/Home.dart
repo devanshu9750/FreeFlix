@@ -1,4 +1,3 @@
-import 'package:FreeFlix/component/MainBody.dart';
 import 'package:FreeFlix/screens/Search.dart';
 import 'package:FreeFlix/data/SearchData.dart';
 import 'package:FreeFlix/screens/drawer/Report.dart';
@@ -7,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import '../component/HomeBodyItems.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -50,38 +50,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     anime = TabController(length: 3, vsync: this);
     series = TabController(length: 1, vsync: this);
     homeBodyItems = [
-      TabBarView(
+      Movies(
         controller: movies,
-        children: [
-          MainBody(
-            collection: "movies",
-            type: 1,
-          ),
-          MainBody(
-            collection: "movies",
-            type: 0,
-          )
-        ],
       ),
-      TabBarView(
+      Series(
         controller: series,
-        children: [
-          MainBody(
-            collection: "series",
-            type: 0,
-          )
-        ],
       ),
-      TabBarView(
+      Anime(
         controller: anime,
-        children: [
-          MainBody(
-            collection: "anime",
-            type: 0,
-          ),
-          Container(),
-          Container()
-        ],
       ),
     ];
     tabBarItems = [
