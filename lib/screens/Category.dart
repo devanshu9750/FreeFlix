@@ -1,5 +1,6 @@
 import 'package:FreeFlix/screens/detail/MDetailPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'detail/SDetailPage.dart';
@@ -62,9 +63,21 @@ class Category extends StatelessWidget {
                         ),
                         SizedBox(
                           width: (context.mq.size.width / 3) - 10,
-                          child:
-                              (collection == "movies" || collection == "series")
-                                  ? document.id.text.bold.center.make()
+                          child: (collection == "movies" ||
+                                  collection == "series")
+                              ? document.id.text.bold.center.make()
+                              : (document.id[3] == 'v')
+                                  ? (document.id[1] == "D")
+                                      ? ("(Dub) " + document.id.substring(6))
+                                          .text
+                                          .center
+                                          .bold
+                                          .make()
+                                      : ("(Sub) " + document.id.substring(6))
+                                          .text
+                                          .center
+                                          .bold
+                                          .make()
                                   : document.id
                                       .substring(6)
                                       .text
@@ -76,6 +89,9 @@ class Category extends StatelessWidget {
                     ),
                   ))
               .toList(),
+        ),
+        SizedBox(
+          height: AdSize.banner.height.toDouble(),
         )
       ]).scrollVertical(),
     );

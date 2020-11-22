@@ -13,8 +13,14 @@ class Anime extends StatelessWidget {
           collection: "anime",
           type: 0,
         ),
-        Container(),
-        Container()
+        MainBody(
+          collection: "anime",
+          type: 1,
+        ),
+        MainBody(
+          collection: "anime",
+          type: 2,
+        )
       ],
     );
   }

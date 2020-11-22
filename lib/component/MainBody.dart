@@ -2,6 +2,7 @@ import 'package:FreeFlix/screens/Category.dart';
 import 'package:FreeFlix/screens/detail/MDetailPage.dart';
 import 'package:FreeFlix/screens/detail/SDetailPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'Ads.dart';
@@ -94,12 +95,26 @@ class MainBody extends StatelessWidget {
                               child: (collection == "movies" ||
                                       collection == "series")
                                   ? document.id.text.bold.center.make()
-                                  : document.id
-                                      .substring(6)
-                                      .text
-                                      .center
-                                      .bold
-                                      .make(),
+                                  : (type == 2)
+                                      ? (document.id[1] == "D")
+                                          ? ("(Dub) " +
+                                                  document.id.substring(6))
+                                              .text
+                                              .center
+                                              .bold
+                                              .make()
+                                          : ("(Sub) " +
+                                                  document.id.substring(6))
+                                              .text
+                                              .center
+                                              .bold
+                                              .make()
+                                      : document.id
+                                          .substring(6)
+                                          .text
+                                          .center
+                                          .bold
+                                          .make(),
                             ).pOnly(top: 10)
                           ],
                         ),
@@ -115,7 +130,6 @@ class MainBody extends StatelessWidget {
           HStack(categories
                   .map((category) => GestureDetector(
                         onTap: () async {
-                          Ads.disposeAd();
                           List<QueryDocumentSnapshot> data = [];
                           snapshot.data.docs.forEach((document) {
                             if (document
@@ -207,19 +221,34 @@ class MainBody extends StatelessWidget {
                             height: 60,
                             child: (collection == "movies" ||
                                     collection == "series")
-                                ? document.id.text.center.bold.make()
-                                : document.id
-                                    .substring(6)
-                                    .text
-                                    .center
-                                    .bold
-                                    .make(),
+                                ? document.id.text.bold.center.make()
+                                : (type == 2)
+                                    ? (document.id[1] == "D")
+                                        ? ("(Dub) " + document.id.substring(6))
+                                            .text
+                                            .center
+                                            .bold
+                                            .make()
+                                        : ("(Sub) " + document.id.substring(6))
+                                            .text
+                                            .center
+                                            .bold
+                                            .make()
+                                    : document.id
+                                        .substring(6)
+                                        .text
+                                        .center
+                                        .bold
+                                        .make(),
                           ).pOnly(top: 10)
                         ],
                       ),
                     ))
                 .toList(),
-          ).pOnly(top: 20)
+          ).pOnly(top: 20),
+          SizedBox(
+            height: AdSize.banner.height.toDouble() - 5,
+          )
         ]).scrollVertical();
       },
     );
