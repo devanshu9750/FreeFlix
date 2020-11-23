@@ -232,7 +232,7 @@ class SDetailPage extends StatelessWidget {
                     )
                   : Container()
             ],
-          ).pOnly(left: 15, right: 15, top: 10, bottom: 20)
+          ).pOnly(left: 15, right: 15, top: 10, bottom: 20),
         ]).scrollVertical(),
       ),
     );

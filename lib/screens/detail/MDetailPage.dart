@@ -27,6 +27,7 @@ class MDetailPage extends StatelessWidget {
                   right: BorderSide(color: Colors.red, width: 1))),
           child: FloatingActionButton(
             onPressed: () {
+              Ads.disposeAd();
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => Player(
                   id: data.data()['id'],
@@ -191,7 +192,7 @@ class MDetailPage extends StatelessWidget {
                 ],
               ),
             ),
-          ).pOnly(left: 25, right: 15, top: 20, bottom: 20)
+          ).pOnly(left: 25, right: 15, top: 20, bottom: 20),
         ]).scrollVertical(),
       ),
     );

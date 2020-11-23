@@ -4,24 +4,21 @@ class Ads {
   static BannerAd myBanner;
 
   static void showAd() {
-    MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-      keywords: <String>['wallpaper'],
-      childDirected: false,
-      testDevices: <String>[],
-    );
     myBanner = BannerAd(
-      adUnitId: BannerAd.testAdUnitId,
-      size: AdSize.banner,
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("BannerAd event is $event");
-      },
-    );
+        adUnitId: "ca-app-pub-1508391904647076/5158206189",
+        size: AdSize.banner,
+        targetingInfo: MobileAdTargetingInfo(
+          childDirected: false,
+          testDevices: <String>[],
+        ),
+        listener: (MobileAdEvent event) {
+          print("BannerAd event is $event");
+        });
+
     myBanner
       ..load()
       ..show(
         anchorOffset: 60.0,
-        horizontalCenterOffset: 10.0,
         anchorType: AnchorType.bottom,
       );
   }

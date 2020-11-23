@@ -129,7 +129,8 @@ class MainBody extends StatelessWidget {
               .pOnly(left: 15),
           HStack(categories
                   .map((category) => GestureDetector(
-                        onTap: () async {
+                        onTap: () {
+                          Ads.disposeAd();
                           List<QueryDocumentSnapshot> data = [];
                           snapshot.data.docs.forEach((document) {
                             if (document
