@@ -1,3 +1,4 @@
+import 'package:FreeFlix/component/Ads.dart';
 import 'package:FreeFlix/screens/Category.dart';
 import 'package:FreeFlix/screens/detail/MDetailPage.dart';
 import 'package:FreeFlix/screens/detail/SDetailPage.dart';
@@ -5,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'Ads.dart';
 
 class MainBody extends StatelessWidget {
   final String collection;

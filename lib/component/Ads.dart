@@ -6,7 +6,7 @@ class Ads {
   static void showBannerAd() {
     myBanner = BannerAd(
         adUnitId: "ca-app-pub-1508391904647076/5158206189",
-        size: AdSize.banner,
+        size: AdSize.fullBanner,
         targetingInfo: MobileAdTargetingInfo(
           childDirected: false,
           testDevices: <String>[],
@@ -18,25 +18,26 @@ class Ads {
     myBanner
       ..load()
       ..show(
-        anchorOffset: 60.0,
+        anchorOffset: 55.0,
         anchorType: AnchorType.bottom,
       );
   }
 
   static void disposeBannerAd() {
     try {
-      myBanner.dispose();
+      myBanner?.dispose();
     } catch (e) {}
   }
 
-  static Future<void> showInterstitialAd() async {
+  static void showInterstitialAd() async {
     InterstitialAd myInterstitial = InterstitialAd(
       adUnitId: "ca-app-pub-1508391904647076/3021576558",
       listener: (MobileAdEvent event) {
         print("InterstitialAd event is $event");
       },
     );
-    await myInterstitial.load();
-    await myInterstitial.show();
+    myInterstitial
+      ..load()
+      ..show();
   }
 }

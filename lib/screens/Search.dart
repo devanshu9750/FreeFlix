@@ -4,7 +4,6 @@ import 'package:FreeFlix/screens/detail/SDetailPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../component/Ads.dart';
 
 class Search extends SearchDelegate {
   @override
@@ -52,7 +51,6 @@ class Search extends SearchDelegate {
     return VStack(data
             .map((document) => GestureDetector(
                   onTap: () {
-                    Ads.disposeBannerAd();
                     if (document.data().containsKey("seasons")) {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => SDetailPage(
@@ -100,7 +98,6 @@ class Search extends SearchDelegate {
     return VStack(data
             .map((document) => GestureDetector(
                   onTap: () {
-                    Ads.disposeBannerAd();
                     if (document.data().containsKey("seasons")) {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => SDetailPage(

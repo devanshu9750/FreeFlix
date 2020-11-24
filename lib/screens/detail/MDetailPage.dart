@@ -21,8 +21,8 @@ class MDetailPage extends StatelessWidget {
                 left: BorderSide(color: Colors.red, width: 1),
                 right: BorderSide(color: Colors.red, width: 1))),
         child: FloatingActionButton(
-          onPressed: () async {
-            await Ads.showInterstitialAd();
+          onPressed: () {
+            Ads.showInterstitialAd();
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => Player(
                 id: data.data()['id'],

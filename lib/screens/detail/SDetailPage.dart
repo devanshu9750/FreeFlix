@@ -1,3 +1,4 @@
+import 'package:FreeFlix/component/Ads.dart';
 import 'package:FreeFlix/screens/EpisdoeList.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -63,8 +64,8 @@ class SDetailPage extends StatelessWidget {
                   children: [
                     Text(
                       data.data()['imdb'],
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     "IMDb".text.make().pOnly(top: 5)
                   ],
@@ -85,8 +86,8 @@ class SDetailPage extends StatelessWidget {
                   children: [
                     Text(
                       data.data()['seasons'].toString(),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     "Seasons".text.make().pOnly(top: 5)
                   ],
@@ -140,6 +141,7 @@ class SDetailPage extends StatelessWidget {
               physics: ScrollPhysics(),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
+                  Ads.showInterstitialAd();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => EpisodeList(
                       title: ('Season' +
@@ -178,6 +180,7 @@ class SDetailPage extends StatelessWidget {
             (data.data().containsKey("Ova"))
                 ? GestureDetector(
                     onTap: () {
+                      Ads.showInterstitialAd();
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => EpisodeList(
                           title: "Ova",
@@ -203,6 +206,7 @@ class SDetailPage extends StatelessWidget {
             (data.data().containsKey("Movies"))
                 ? GestureDetector(
                     onTap: () {
+                      Ads.showInterstitialAd();
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => EpisodeList(
                           title: "Movies",
