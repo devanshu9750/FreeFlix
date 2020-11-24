@@ -52,7 +52,7 @@ class Search extends SearchDelegate {
     return VStack(data
             .map((document) => GestureDetector(
                   onTap: () {
-                    Ads.disposeAd();
+                    Ads.disposeBannerAd();
                     if (document.data().containsKey("seasons")) {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => SDetailPage(
@@ -100,7 +100,7 @@ class Search extends SearchDelegate {
     return VStack(data
             .map((document) => GestureDetector(
                   onTap: () {
-                    Ads.disposeAd();
+                    Ads.disposeBannerAd();
                     if (document.data().containsKey("seasons")) {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => SDetailPage(

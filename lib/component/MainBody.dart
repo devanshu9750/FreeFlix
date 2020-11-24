@@ -55,7 +55,7 @@ class MainBody extends StatelessWidget {
                   .sublist(0, 10)
                   .map((document) => GestureDetector(
                         onTap: () {
-                          Ads.disposeAd();
+                          Ads.disposeBannerAd();
                           if (document.data().containsKey("seasons")) {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => SDetailPage(
@@ -130,7 +130,7 @@ class MainBody extends StatelessWidget {
           HStack(categories
                   .map((category) => GestureDetector(
                         onTap: () {
-                          Ads.disposeAd();
+                          Ads.disposeBannerAd();
                           List<QueryDocumentSnapshot> data = [];
                           snapshot.data.docs.forEach((document) {
                             if (document
@@ -183,7 +183,7 @@ class MainBody extends StatelessWidget {
                 .sublist(10)
                 .map((document) => GestureDetector(
                       onTap: () {
-                        Ads.disposeAd();
+                        Ads.disposeBannerAd();
                         if (document.data().containsKey("seasons")) {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => SDetailPage(

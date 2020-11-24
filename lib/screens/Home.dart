@@ -24,7 +24,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    Ads.showAd();
+    Ads.showBannerAd();
     movies = TabController(length: 2, vsync: this);
     anime = TabController(length: 3, vsync: this);
     series = TabController(length: 1, vsync: this);
