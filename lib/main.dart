@@ -6,10 +6,21 @@ import 'package:flutter/material.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
-    home: App(),
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(brightness: Brightness.dark),
-  ));
+      home: App(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        accentColor: Colors.white,
+          tabBarTheme: TabBarTheme(
+              indicator: UnderlineTabIndicator(borderSide: BorderSide(
+                color: Colors.white
+              ))),
+          brightness: Brightness.dark,
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              selectedIconTheme: IconThemeData(
+                color: Colors.white,
+              ),
+              selectedItemColor: Colors.white,
+              unselectedIconTheme: IconThemeData(color: Color(0xff616161))))));
 }
 
 class App extends StatelessWidget {

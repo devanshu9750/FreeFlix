@@ -88,30 +88,42 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         child: Drawer(
           child: Column(
             children: [
-              Divider(
-                color: Vx.white,
+              SizedBox(
+                child: Image.asset("assets/icon1.PNG"),
               ),
-              ListTile(
-                title: "Request".text.bold.make(),
-              ).onInkTap(() {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Request(),
-                ));
-              }),
-              Divider(
-                color: Vx.white,
+              SizedBox(
+                height: 10,
               ),
-              ListTile(
-                title: "Report a Problem".text.bold.make(),
-              ).onInkTap(() {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Report(),
-                ));
-              }),
-              Divider(
-                color: Vx.white,
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(color: Colors.white, width: 1)),
+                color: Colors.black54,
+                child: ListTile(
+                  title: "Request".text.bold.make(),
+                ).onInkTap(() {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Request(),
+                  ));
+                }),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(color: Colors.white, width: 1)),
+                color: Colors.black54,
+                child: ListTile(
+                  title: "Report a Problem".text.bold.make(),
+                ).onInkTap(() {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Report(),
+                  ));
+                }),
               ),
             ],
           ),
