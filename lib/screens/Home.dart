@@ -89,7 +89,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           child: Column(
             children: [
               SizedBox(
-                child: Image.asset("assets/icon1.PNG"),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                    child: Image.asset("assets/icon1.PNG")),
               ),
               SizedBox(
                 height: 10,
