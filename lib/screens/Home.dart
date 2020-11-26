@@ -105,7 +105,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     side: BorderSide(color: Colors.white, width: 1)),
                 color: Colors.black54,
                 child: ListTile(
-                  title: "Request".text.bold.make(),
+                  title: "Request".text.bold.size(16).make(),
                 ).onInkTap(() {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
@@ -122,7 +122,24 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     side: BorderSide(color: Colors.white, width: 1)),
                 color: Colors.black54,
                 child: ListTile(
-                  title: "Report a Problem".text.bold.make(),
+                  title: "Report a Problem".text.bold.size(16).make(),
+                ).onInkTap(() {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Report(),
+                  ));
+                }),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(color: Colors.white, width: 1)),
+                color: Colors.black54,
+                child: ListTile(
+                  title: "Privacy Policy".text.bold.size(16).make(),
                 ).onInkTap(() {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(

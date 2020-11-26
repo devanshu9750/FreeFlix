@@ -16,7 +16,12 @@ class MainBody extends StatelessWidget {
     "Comedy",
     "Drama",
     "Fantasy",
-    "Romance"
+    "Horror",
+    "Mystery",
+    "Romance",
+    "Thriller",
+
+
   ];
   MainBody({this.collection, this.type});
   @override
