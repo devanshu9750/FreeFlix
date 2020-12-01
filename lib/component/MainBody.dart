@@ -1,4 +1,5 @@
 import 'package:FreeFlix/component/Ads.dart';
+import 'package:FreeFlix/component/Grid.dart';
 import 'package:FreeFlix/screens/Category.dart';
 import 'package:FreeFlix/screens/detail/MDetailPage.dart';
 import 'package:FreeFlix/screens/detail/SDetailPage.dart';
@@ -20,9 +21,8 @@ class MainBody extends StatelessWidget {
     "Mystery",
     "Romance",
     "Thriller",
-
-
   ];
+  ScrollController controller = ScrollController();
   MainBody({this.collection, this.type});
   @override
   Widget build(BuildContext context) {
@@ -179,83 +179,16 @@ class MainBody extends StatelessWidget {
               .textStyle(Theme.of(context).textTheme.headline6)
               .make()
               .pOnly(left: 15, top: 30),
-          GridView.count(
-            crossAxisCount: 3,
-            shrinkWrap: true,
-            physics: ScrollPhysics(),
-            childAspectRatio: 0.5,
-            children: snapshot.data.docs
-                .sublist(10)
-                .map((document) => GestureDetector(
-                      onTap: () {
-                        Ads.disposeBannerAd();
-                        if (document.data().containsKey("seasons")) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SDetailPage(
-                              data: document,
-                            ),
-                          ));
-                          return;
-                        }
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => MDetailPage(
-                            data: document,
-                          ),
-                        ));
-                      },
-                      child: Column(
-                        children: [
-                          Card(
-                            shape: Vx.withRounded(20),
-                            child: Container(
-                              width: (context.mq.size.width / 3) - 10,
-                              height: 180,
-                              child: Hero(
-                                tag: document.id,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    document.data()['posterurl'],
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: (context.mq.size.width / 3) - 10,
-                            height: 60,
-                            child: (collection == "movies" ||
-                                    collection == "series")
-                                ? document.id.text.bold.center.make()
-                                : (type == 2)
-                                    ? (document.id[1] == "D")
-                                        ? ("(Dub) " + document.id.substring(6))
-                                            .text
-                                            .center
-                                            .bold
-                                            .make()
-                                        : ("(Sub) " + document.id.substring(6))
-                                            .text
-                                            .center
-                                            .bold
-                                            .make()
-                                    : document.id
-                                        .substring(6)
-                                        .text
-                                        .center
-                                        .bold
-                                        .make(),
-                          ).pOnly(top: 10)
-                        ],
-                      ),
-                    ))
-                .toList(),
-          ).pOnly(top: 20),
+          Grid(
+              collection: collection,
+              type: type,
+              total: snapshot.data.docs.length,
+              controller: controller,
+              data: snapshot.data.docs),
           SizedBox(
             height: AdSize.banner.height.toDouble() - 5,
           )
-        ]).scrollVertical();
+        ]).scrollVertical(controller: controller);
       },
     );
   }
