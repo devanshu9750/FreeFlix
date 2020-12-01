@@ -23,10 +23,11 @@ class Ads {
       );
   }
 
-  static void disposeBannerAd() {
-    try {
-      myBanner?.dispose();
-    } catch (e) {}
+  static void disposeBannerAd() async {
+    bool check = await myBanner.isLoaded();
+    if (check) {
+      myBanner.dispose();
+    }
   }
 
   static void showInterstitialAd() async {
