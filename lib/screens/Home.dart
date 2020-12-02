@@ -95,7 +95,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20),
                     ),
-                    child: Image.asset("assets/icon1.PNG")),
+                    child: Image.asset("assets/icon1.png")),
               ),
               SizedBox(
                 height: 10,
