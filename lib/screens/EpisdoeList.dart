@@ -1,3 +1,4 @@
+import 'package:FreeFlix/component/Ads.dart';
 import 'package:FreeFlix/screens/Player.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -17,6 +18,7 @@ class EpisodeList extends StatelessWidget {
       body: VStack(keys
               .map((key) => GestureDetector(
                     onTap: () {
+                      Ads.showInterstitialAd();
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => Player(
                           id: data[key],

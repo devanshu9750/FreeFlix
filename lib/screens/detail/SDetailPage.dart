@@ -141,7 +141,7 @@ class SDetailPage extends StatelessWidget {
               physics: ScrollPhysics(),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
-                  Ads.showInterstitialAd();
+                  // Ads.showInterstitialAd();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => EpisodeList(
                       title: ('Season' +

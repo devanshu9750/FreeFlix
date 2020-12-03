@@ -161,6 +161,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             icon: Icon(Icons.search),
             onPressed: () {
               showSearch(context: context, delegate: Search());
+              Ads.disposeBannerAd();
               if (_currentIndex == 0) {
                 SearchData.collection = "movies";
                 FirebaseFirestore.instance

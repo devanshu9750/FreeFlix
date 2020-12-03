@@ -1,20 +1,21 @@
+import 'dart:async';
 import 'package:firebase_admob/firebase_admob.dart';
 
 class Ads {
-  static BannerAd myBanner;
+  static BannerAd myBanner = BannerAd(
+      adUnitId: "ca-app-pub-1508391904647076/5158206189",
+      size: AdSize.fullBanner,
+      targetingInfo: MobileAdTargetingInfo(
+        childDirected: false,
+        testDevices: <String>[],
+      ),
+      listener: (MobileAdEvent event) {
+        print("BannerAd event is $event");
+      });
+
+  static bool flag = true;
 
   static void showBannerAd() {
-    myBanner = BannerAd(
-        adUnitId: "ca-app-pub-1508391904647076/5158206189",
-        size: AdSize.fullBanner,
-        targetingInfo: MobileAdTargetingInfo(
-          childDirected: false,
-          testDevices: <String>[],
-        ),
-        listener: (MobileAdEvent event) {
-          print("BannerAd event is $event");
-        });
-
     myBanner
       ..load()
       ..show(
@@ -24,9 +25,18 @@ class Ads {
   }
 
   static void disposeBannerAd() async {
-    bool check = await myBanner.isLoaded();
-    if (check) {
-      myBanner.dispose();
+    if (flag) {
+      Timer.periodic(Duration(seconds: 1), (timer) async {
+        bool check = await myBanner.isLoaded();
+        if (check) {
+          myBanner.dispose().then((value) {
+            if (value == true) {
+              timer.cancel();
+              flag = false;
+            }
+          });
+        }
+      });
     }
   }
 
