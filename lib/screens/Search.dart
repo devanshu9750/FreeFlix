@@ -41,8 +41,10 @@ class Search extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     List<QueryDocumentSnapshot> data = [];
-    if (SearchData.data != null && query != "") {
-      SearchData.data.docs.forEach((document) {
+    if ((SearchData.data != null) &&
+        (SearchData.data.length != 0) &&
+        (query != "")) {
+      SearchData.data.forEach((document) {
         if (document.id.toLowerCase().contains(query.toLowerCase())) {
           data.add(document);
         }
@@ -87,9 +89,9 @@ class Search extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     List<QueryDocumentSnapshot> data = [];
     if ((SearchData.data != null) &&
-        (SearchData.data.size != 0) &&
+        (SearchData.data.length != 0) &&
         (query != "")) {
-      SearchData.data.docs.forEach((document) {
+      SearchData.data.forEach((document) {
         if (document.id.toLowerCase().contains(query.toLowerCase())) {
           data.add(document);
         }
