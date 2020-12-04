@@ -72,25 +72,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ],
       )
     ];
-
-    FirebaseFirestore.instance
-        .collection("movies")
-        .get()
-        .then((QuerySnapshot snapshot) {
-      SearchData.data = snapshot.docs;
-      FirebaseFirestore.instance
-          .collection("series")
-          .get()
-          .then((QuerySnapshot snapshot) {
-        SearchData.data.addAll(snapshot.docs);
-        FirebaseFirestore.instance
-            .collection("anime")
-            .get()
-            .then((QuerySnapshot snapshot) {
-          SearchData.data.addAll(snapshot.docs);
-        });
-      });
-    });
   }
 
   @override
@@ -179,6 +160,24 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
+              FirebaseFirestore.instance
+                  .collection("movies")
+                  .get()
+                  .then((QuerySnapshot snapshot) {
+                SearchData.data = snapshot.docs;
+                FirebaseFirestore.instance
+                    .collection("series")
+                    .get()
+                    .then((QuerySnapshot snapshot) {
+                  SearchData.data.addAll(snapshot.docs);
+                  FirebaseFirestore.instance
+                      .collection("anime")
+                      .get()
+                      .then((QuerySnapshot snapshot) {
+                    SearchData.data.addAll(snapshot.docs);
+                  });
+                });
+              });
               showSearch(context: context, delegate: Search());
               Ads.disposeBannerAd();
             },
