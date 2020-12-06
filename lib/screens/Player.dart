@@ -45,11 +45,11 @@ class _PlayerState extends State<Player> {
                   "https://drive.google.com/file/d/" + widget.id + "/preview",
             ),
             Positioned(
-                right: 15,
-                top: 15,
+                right: 5,
+                top: 5,
                 child: Container(
-                  height: 35,
-                  width: 35,
+                  height: 50,
+                  width: 50,
                   decoration: BoxDecoration(color: Colors.black),
                   child: Icon(Icons.clear),
                 ).onTap(() {

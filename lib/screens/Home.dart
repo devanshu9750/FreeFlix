@@ -5,9 +5,11 @@ import 'package:FreeFlix/screens/drawer/Report.dart';
 import 'package:FreeFlix/screens/drawer/Request.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../component/HomeBodyItems.dart';
-import './drawer/PrivacyPolicy.dart';
+import 'drawer/ContentNotice.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -137,15 +139,48 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: Colors.white, width: 1)),
+                    side: BorderSide(color: Vx.white, width: 1)),
                 color: Colors.black54,
                 child: ListTile(
-                  title: "Privacy Policy".text.bold.size(16).make(),
+                  title: "Content Notice".text.bold.size(16).make(),
                 ).onInkTap(() {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => PrivacyPolicy(),
+                    builder: (context) => ContentNotice(),
                   ));
+                }),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(color: Vx.white, width: 1)),
+                color: Colors.black54,
+                child: ListTile(
+                  title: "Update".text.bold.size(16).make(),
+                ).onInkTap(() async {
+                  Navigator.of(context).pop();
+                  PackageInfo info = await PackageInfo.fromPlatform();
+                  if (info.version !=
+                      (await FirebaseFirestore.instance
+                              .collection("texts")
+                              .doc("version")
+                              .get())
+                          .data()['value']) {
+                    launch((await FirebaseFirestore.instance
+                            .collection("texts")
+                            .doc("update")
+                            .get())
+                        .data()['value']);
+                  } else {
+                    context.showToast(
+                        msg: "Your app is already upto date !!",
+                        bgColor: Vx.black,
+                        textColor: Vx.white,
+                        showTime: 3000);
+                  }
                 }),
               ),
             ],
