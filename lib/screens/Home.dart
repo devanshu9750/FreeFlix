@@ -110,6 +110,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 child: ListTile(
                   title: "Request".text.bold.size(16).make(),
                 ).onInkTap(() {
+                  Ads.disposeBannerAd();
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => Request(),
@@ -127,6 +128,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 child: ListTile(
                   title: "Report a Problem".text.bold.size(16).make(),
                 ).onInkTap(() {
+                  Ads.disposeBannerAd();
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => Report(),
@@ -144,6 +146,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 child: ListTile(
                   title: "Content Notice".text.bold.size(16).make(),
                 ).onInkTap(() {
+                  Ads.disposeBannerAd();
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ContentNotice(),
@@ -162,6 +165,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   title: "Update".text.bold.size(16).make(),
                 ).onInkTap(() async {
                   Navigator.of(context).pop();
+                  Ads.disposeBannerAd();
                   PackageInfo info = await PackageInfo.fromPlatform();
                   if (info.version !=
                       (await FirebaseFirestore.instance

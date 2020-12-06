@@ -8,6 +8,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+// ignore: must_be_immutable
 class MainBody extends StatelessWidget {
   final String collection;
   final int type;
@@ -45,7 +46,8 @@ class MainBody extends StatelessWidget {
                   .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Container();
+          return Center(
+              child: "Something went wrong restart your app !!".text.make());
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
