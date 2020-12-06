@@ -23,6 +23,7 @@ class MainBody extends StatelessWidget {
     "Romance",
     "Thriller",
   ];
+
   ScrollController controller = ScrollController();
   MainBody({this.collection, this.type});
   @override

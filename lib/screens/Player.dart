@@ -39,6 +39,7 @@ class _PlayerState extends State<Player> {
     return Scaffold(
       body: Builder(
         builder: (context) => Stack(
+          fit: StackFit.expand,
           children: [
             InAppWebView(
               initialUrl:
