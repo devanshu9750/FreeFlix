@@ -6,6 +6,7 @@ import 'package:FreeFlix/screens/detail/SDetailPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_admob/flutter_native_admob.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 // ignore: must_be_immutable
@@ -54,6 +55,16 @@ class MainBody extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
         return VStack([
+          Container(
+            height: 80,
+            width: context.mq.size.width,
+            decoration: BoxDecoration(color: Vx.white),
+            child: NativeAdmob(
+              adUnitID: "ca-app-pub-1508391904647076/5230012897",
+              loading: "Ads".text.bold.black.make(),
+              type: NativeAdmobType.banner,
+            ),
+          ),
           ((collection == "movies") ? "Latest Movies" : "Top rated")
               .text
               .textStyle(Theme.of(context).textTheme.headline6)

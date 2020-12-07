@@ -180,7 +180,7 @@ class SDetailPage extends StatelessWidget {
             (data.data().containsKey("Ova"))
                 ? GestureDetector(
                     onTap: () {
-                      Ads.showInterstitialAd();
+                      // Ads.showInterstitialAd();
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => EpisodeList(
                           title: "Ova",
@@ -206,7 +206,7 @@ class SDetailPage extends StatelessWidget {
             (data.data().containsKey("Movies"))
                 ? GestureDetector(
                     onTap: () {
-                      Ads.showInterstitialAd();
+                      // Ads.showInterstitialAd();
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => EpisodeList(
                           title: "Movies",
