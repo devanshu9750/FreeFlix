@@ -28,9 +28,11 @@ class App extends StatelessWidget {
     await FirebaseAdMob.instance
         .initialize(appId: "ca-app-pub-1508391904647076~4705628668");
     await Firebase.initializeApp();
-    bool beta =
-        (await FirebaseFirestore.instance.collection("flags").doc("beta").get())
-            .data()['value'];
+    bool beta = (await FirebaseFirestore.instance
+            .collection("flags")
+            .doc("alpha")
+            .get())
+        .data()['value'];
     return beta;
   }
 
@@ -53,12 +55,26 @@ class App extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           if (!snapshot.data) {
             return Scaffold(
-                body: Center(
-              child: Text(
-                "You need to get the latest apk !!\nEmail us at freeflixdev@gmail.com",
-                style: TextStyle(color: Colors.white),
+              body: FutureBuilder<DocumentSnapshot>(
+                future: FirebaseFirestore.instance
+                    .collection("flags")
+                    .doc("alpha")
+                    .get(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Center(
+                      child: Text(
+                        snapshot.data.data()['text'],
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
               ),
-            ));
+            );
           }
           return Home();
         }

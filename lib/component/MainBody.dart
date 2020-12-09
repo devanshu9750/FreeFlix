@@ -55,15 +55,29 @@ class MainBody extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
         return VStack([
-          Container(
-            height: 80,
-            width: context.mq.size.width,
-            decoration: BoxDecoration(color: Vx.white),
-            child: NativeAdmob(
-              adUnitID: "ca-app-pub-1508391904647076/5230012897",
-              loading: "Ads".text.bold.black.make(),
-              type: NativeAdmobType.banner,
-            ),
+          FutureBuilder<DocumentSnapshot>(
+            future: FirebaseFirestore.instance
+                .collection("flags")
+                .doc("nativead")
+                .get(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.data.data()['value']) {
+                  return Container(
+                    height: 80,
+                    width: context.mq.size.width,
+                    decoration: BoxDecoration(color: Vx.white),
+                    child: NativeAdmob(
+                      adUnitID: "ca-app-pub-1508391904647076/5230012897",
+                      loading: "Ads".text.bold.black.make(),
+                      type: NativeAdmobType.banner,
+                    ),
+                  );
+                }
+                return Container();
+              }
+              return Container();
+            },
           ),
           ((collection == "movies") ? "Latest Movies" : "Top rated")
               .text
