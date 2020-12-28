@@ -50,7 +50,7 @@ class _PlayerState extends State<Player> {
                 top: 5,
                 child: Container(
                   height: 50,
-                  width: 50,
+                  width: 200,
                   decoration: BoxDecoration(color: Colors.black),
                   child: Icon(Icons.clear),
                 ).onTap(() {
