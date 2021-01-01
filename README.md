@@ -1,6 +1,6 @@
 # FreeFlix
 
-A new Flutter project.
+A movie, series and anime streaming app.
 
 ## Getting Started
 
